@@ -6,6 +6,7 @@ import {
   Typography,
   Box,
   Fab,
+  Grid,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useSelector } from 'react-redux';
@@ -79,25 +80,26 @@ const TaskManager: React.FC = () => {
       <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <TaskFilters />
         
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, 
-          gap: 3, 
-          mt: 2 
-        }}>
-          <TaskColumn 
-            title={t('columns.todo')} 
-            tasks={todoTasks}
-          />
-          <TaskColumn 
-            title={t('columns.inProgress')} 
-            tasks={inProgressTasks}
-          />
-          <TaskColumn 
-            title={t('columns.done')} 
-            tasks={doneTasks}
-          />
-        </Box>
+        <Grid container spacing={3} sx={{ mt: 2 }}>
+          <Grid item xs={12} md={4}>
+            <TaskColumn 
+              title={t('columns.todo')} 
+              tasks={todoTasks}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TaskColumn 
+              title={t('columns.inProgress')} 
+              tasks={inProgressTasks}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TaskColumn 
+              title={t('columns.done')} 
+              tasks={doneTasks}
+            />
+          </Grid>
+        </Grid>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
           <Typography variant="body2" color="text.secondary">

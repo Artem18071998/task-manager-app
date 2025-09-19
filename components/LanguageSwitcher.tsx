@@ -13,7 +13,7 @@ const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
   const handleLanguageChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const newLanguage = event.target.value;
+    const newLanguage = event.target.value as string;
     i18n.changeLanguage(newLanguage);
     // Сохраняем выбранный язык в localStorage
     localStorage.setItem('preferred-language', newLanguage);
