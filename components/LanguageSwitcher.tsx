@@ -12,8 +12,8 @@ import { useTranslation } from 'react-i18next';
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
-  const handleLanguageChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const newLanguage = event.target.value as string;
+  const handleLanguageChange = (event: any) => {
+    const newLanguage = event.target.value;
     i18n.changeLanguage(newLanguage);
     // Сохраняем выбранный язык в localStorage
     localStorage.setItem('preferred-language', newLanguage);
