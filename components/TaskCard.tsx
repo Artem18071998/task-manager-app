@@ -26,7 +26,7 @@ interface TaskCardProps {
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleStatusChange = (newStatus: TaskStatus) => {
     dispatch(updateTask({ id: task.id, updates: { status: newStatus } }));
@@ -55,21 +55,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
     return t(`priority.${priority}`);
   };
 
-  const getStatusLabel = (status: TaskStatus) => {
-    switch (status) {
-      case TaskStatus.TODO:
-        return t('status.todo');
-      case TaskStatus.IN_PROGRESS:
-        return t('status.inProgress');
-      case TaskStatus.DONE:
-        return t('status.done');
-      default:
-        return status;
-    }
-  };
 
   const formatDate = (dateString: string) => {
-    const { i18n } = useTranslation();
     const locale = i18n.language === 'ru' ? 'ru-RU' : 'en-US';
     return new Date(dateString).toLocaleDateString(locale);
   };

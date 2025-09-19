@@ -45,10 +45,9 @@ const TaskManager: React.FC = () => {
     setEditingTask(null);
   };
 
-  const TaskColumn: React.FC<{ title: string; tasks: typeof filteredTasks; status: TaskStatus }> = ({ 
+  const TaskColumn: React.FC<{ title: string; tasks: typeof filteredTasks }> = ({ 
     title, 
-    tasks, 
-    status 
+    tasks 
   }) => (
     <Box sx={{ minHeight: '60vh', backgroundColor: '#f5f5f5', borderRadius: 2, p: 2 }}>
       <Typography variant="h6" gutterBottom color="primary">
@@ -88,18 +87,15 @@ const TaskManager: React.FC = () => {
         }}>
           <TaskColumn 
             title={t('columns.todo')} 
-            tasks={todoTasks} 
-            status={TaskStatus.TODO}
+            tasks={todoTasks}
           />
           <TaskColumn 
             title={t('columns.inProgress')} 
-            tasks={inProgressTasks} 
-            status={TaskStatus.IN_PROGRESS}
+            tasks={inProgressTasks}
           />
           <TaskColumn 
             title={t('columns.done')} 
-            tasks={doneTasks} 
-            status={TaskStatus.DONE}
+            tasks={doneTasks}
           />
         </Box>
 

@@ -77,7 +77,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
     }
   };
 
-  const handleSelectChange = (event: any) => {
+  const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setFormData({
       ...formData,
       priority: event.target.value as TaskPriority,

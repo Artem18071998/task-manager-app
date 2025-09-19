@@ -10,9 +10,9 @@ import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher: React.FC = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
 
-  const handleLanguageChange = (event: any) => {
+  const handleLanguageChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const newLanguage = event.target.value;
     i18n.changeLanguage(newLanguage);
     // Сохраняем выбранный язык в localStorage

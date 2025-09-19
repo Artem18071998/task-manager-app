@@ -23,7 +23,7 @@ const TaskFilters: React.FC = () => {
   const { t } = useTranslation();
   const { filter, searchQuery, tasks } = useSelector((state: RootState) => state.tasks);
 
-  const handleFilterChange = (event: any) => {
+  const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     dispatch(setFilter(event.target.value));
   };
 
@@ -98,7 +98,7 @@ const TaskFilters: React.FC = () => {
       {searchQuery && (
         <Box sx={{ mt: 2 }}>
           <Typography variant="body2" color="text.secondary">
-            {t('filters.searchQuery')}: "{searchQuery}"
+            {t('filters.searchQuery')}: &quot;{searchQuery}&quot;
           </Typography>
         </Box>
       )}
