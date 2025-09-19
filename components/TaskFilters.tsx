@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
   InputAdornment,
+  SelectChangeEvent,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -23,7 +24,7 @@ const TaskFilters: React.FC = () => {
   const { t } = useTranslation();
   const { filter, searchQuery, tasks } = useSelector((state: RootState) => state.tasks);
 
-  const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleFilterChange = (event: SelectChangeEvent<TaskStatus | "all">) => {
     dispatch(setFilter(event.target.value));
   };
 

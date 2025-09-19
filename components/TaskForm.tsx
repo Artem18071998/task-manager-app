@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   Box,
+  SelectChangeEvent,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -77,10 +78,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
     }
   };
 
-  const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleSelectChange = (event: SelectChangeEvent<TaskPriority>) => {
     setFormData({
       ...formData,
-      priority: event.target.value as TaskPriority,
+      priority: event.target.value,
     });
   };
 
