@@ -26,12 +26,10 @@ export default function Home() {
     // Восстанавливаем сохраненный язык при загрузке приложения
     const savedLanguage = localStorage.getItem('preferred-language') || 'en';
     
-    if (['ru', 'en'].includes(savedLanguage)) {
+    if (savedLanguage && ['ru', 'en'].includes(savedLanguage)) {
       // Динамически импортируем i18n и меняем язык
       import('../i18n').then((i18n) => {
         i18n.default.changeLanguage(savedLanguage);
-        // Устанавливаем правильную локаль для документа
-        setDocumentLocale(savedLanguage);
       });
     }
   }, []);
