@@ -5,15 +5,14 @@ import {
   MenuItem,
   Box,
   Typography,
-  SelectChangeEvent,
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
-  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
+  const handleLanguageChange = (event: any) => {
     const newLanguage = event.target.value;
     i18n.changeLanguage(newLanguage);
     // Сохраняем выбранный язык в localStorage

@@ -11,7 +11,6 @@ import {
   Select,
   MenuItem,
   Box,
-  SelectChangeEvent,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +26,7 @@ interface TaskFormProps {
 
 const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   
   const [formData, setFormData] = useState({
@@ -78,10 +77,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
     }
   };
 
-  const handleSelectChange = (event: SelectChangeEvent<TaskPriority>) => {
+  const handleSelectChange = (event: any) => {
     setFormData({
       ...formData,
-      priority: event.target.value,
+      priority: event.target.value as TaskPriority,
     });
   };
 
@@ -137,6 +136,19 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
 
   const getPriorityLabel = (priority: TaskPriority) => {
     return t(`priority.${priority}`);
+  };
+
+  // Получаем минимальную дату в правильном формате для текущей локали
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  // Форматируем placeholder для даты в соответствии с локалью
+  const getDatePlaceholder = () => {
+    const locale = i18n.language === 'ru' ? 'ru-RU' : 'en-US';
+    const format = locale === 'ru-RU' ? 'дд.мм.гггг' : 'mm/dd/yyyy';
+    return format;
   };
 
   return (
@@ -201,10 +213,14 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
               variant="outlined"
               value={formData.dueDate}
               onChange={handleInputChange('dueDate')}
-              InputLabelProps={{ shrink: true }}
-              inputProps={{ 
-                min: new Date().toISOString().split('T')[0] // Минимальная дата - сегодня
+              InputLabelProps={{ 
+                shrink: true,
               }}
+              inputProps={{ 
+                min: getMinDate(),
+                placeholder: getDatePlaceholder()
+              }}
+              helperText={t('taskForm.dueDateFormat')}
             />
           </Box>
         </DialogContent>
