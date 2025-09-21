@@ -15,8 +15,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
-      <body className={inter.className}>{children}</body>
+    <html lang="en"> {/* Устанавливаем английский по умолчанию для календарей */}
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Добавляем мета-теги для правильной локализации */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="format-detection" content="date=no" />
+        <meta name="format-detection" content="address=no" />
+        <meta name="format-detection" content="email=no" />
+      </head>
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
+import { setDocumentLocale } from '../utils/locale';
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n, t } = useTranslation();
@@ -17,6 +18,8 @@ const LanguageSwitcher: React.FC = () => {
     i18n.changeLanguage(newLanguage);
     // Сохраняем выбранный язык в localStorage
     localStorage.setItem('preferred-language', newLanguage);
+    // Устанавливаем локаль для документа
+    setDocumentLocale(newLanguage);
   };
 
   const languages = [

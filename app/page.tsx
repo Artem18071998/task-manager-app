@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useEffect } from 'react';
 import { store } from '../store';
 import TaskManager from '../components/TaskManager';
+import { setDocumentLocale } from '../utils/locale';
 import '../i18n'; // Импортируем конфигурацию i18n
 
 const theme = createTheme({
@@ -23,11 +24,14 @@ const theme = createTheme({
 export default function Home() {
   useEffect(() => {
     // Восстанавливаем сохраненный язык при загрузке приложения
-    const savedLanguage = localStorage.getItem('preferred-language');
-    if (savedLanguage && ['ru', 'en'].includes(savedLanguage)) {
+    const savedLanguage = localStorage.getItem('preferred-language') || 'en';
+    
+    if (['ru', 'en'].includes(savedLanguage)) {
       // Динамически импортируем i18n и меняем язык
       import('../i18n').then((i18n) => {
         i18n.default.changeLanguage(savedLanguage);
+        // Устанавливаем правильную локаль для документа
+        setDocumentLocale(savedLanguage);
       });
     }
   }, []);

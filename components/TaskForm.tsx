@@ -144,15 +144,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
     return today.toISOString().split('T')[0];
   };
 
-  // Форматируем placeholder для даты в соответствии с локалью
-  const getDatePlaceholder = () => {
-    const locale = i18n.language === 'ru' ? 'ru-RU' : 'en-US';
-    const format = locale === 'ru-RU' ? 'дд.мм.гггг' : 'mm/dd/yyyy';
-    return format;
-  };
-
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth="sm" 
+      fullWidth
+      // Принудительно устанавливаем локаль для всего диалога
+      key={i18n.language} // Принудительная перерендер при смене языка
+    >
       <form onSubmit={handleSubmit}>
         <DialogTitle>
           {editingTask ? t('taskForm.editTitle') : t('taskForm.createTitle')}
@@ -218,9 +218,21 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, editingTaskId }) => 
               }}
               inputProps={{ 
                 min: getMinDate(),
-                placeholder: getDatePlaceholder()
+                lang: i18n.language === 'ru' ? 'ru-RU' : 'en-US', // Устанавливаем язык для календаря
+                style: { colorScheme: 'light' } // Принудительно светлая тема
               }}
               helperText={t('taskForm.dueDateFormat')}
+              // Принудительно устанавливаем локаль через sx
+              sx={{
+                '& input[type="date"]': {
+                  fontFamily: 'inherit',
+                  '&::-webkit-calendar-picker-indicator': {
+                    opacity: 1,
+                  },
+                },
+                // Устанавливаем локаль для календаря через CSS переменные
+                '--webkit-calendar-picker-language': i18n.language === 'ru' ? 'ru' : 'en',
+              }}
             />
           </Box>
         </DialogContent>
